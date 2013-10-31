@@ -1,7 +1,13 @@
 class Player
+  @health = nil;
+
   def play_turn(warrior)
+    @health = warrior.health unless @health
+
     if warrior.feel.empty?
-      if warrior.health < 15
+      if warrior.health < @health
+        warrior.walk!
+      elsif warrior.health < 15
         warrior.rest!
       else
         warrior.walk!
@@ -9,5 +15,7 @@ class Player
     else
       warrior.attack!
     end
+
+    @health = warrior.health
   end
 end
